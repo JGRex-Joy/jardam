@@ -15,7 +15,7 @@ export default memo(function CampaignCard({ c, i = 0 }) {
       <div className="group relative transition-transform duration-300 hover:-translate-y-1 motion-reduce:transform-none">
         {/* elevation = opacity fade of a pre-painted shadow (no box-shadow animation) */}
         <span aria-hidden className="absolute inset-0 rounded-3xl shadow-xl opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
-        <Link to={`/campaign/${c.id}`} className="relative block overflow-hidden rounded-3xl bg-white shadow-sm">
+        <Link to={`/campaigns/${c.id}`} className="relative block overflow-hidden rounded-3xl bg-white shadow-sm">
           <img src={thumb(c.cover_url)} alt={pick(c, "title")} loading="lazy" decoding="async" className="h-48 w-full object-cover bg-jd-50" />
           <div className="p-5">
             <h3 className="font-bold leading-snug line-clamp-2 min-h-[2.75rem]">{pick(c, "title")}</h3>

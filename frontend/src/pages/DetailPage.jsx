@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import AiReportCard from "../components/detail/AiReportCard";
 import BudgetTable from "../components/detail/BudgetTable";
 import DocumentList from "../components/detail/DocumentList";
-import DocumentModal from "../components/detail/DocumentModal";
+import DocumentViewer from "../components/DocumentViewer";
 import DonationCard from "../components/detail/DonationCard";
 import ExpenseHistory from "../components/detail/ExpenseHistory";
 import QrSection from "../components/QrSection";
@@ -12,6 +12,7 @@ import { Spinner } from "../components/Skeleton";
 import VerificationBadge from "../components/VerificationBadge";
 import { useCampaign } from "../hooks/useCampaign";
 import { useLang } from "../i18n";
+import { campaignUrl } from "../utils/appUrl";
 
 export default function DetailPage() {
   const { id } = useParams();
@@ -38,13 +39,13 @@ export default function DetailPage() {
         <BudgetTable items={c.budget ?? []} />
         <ExpenseHistory expenses={c.expenses ?? []} raised={c.raised ?? 0} />
         <DocumentList documents={c.documents ?? []} sealed={c.status === "VERIFIED"} onOpen={setOpenDoc} />
-        <QrSection id={c.id} title={pick(c, "title")} />
+        <QrSection id={c.id} title={pick(c, "title")} url={campaignUrl(c.id)} />
       </div>
       <aside className="space-y-6">
         <DonationCard campaign={c} onDonate={donate} />
-        <AiReportCard report={c.ai_report} />
+        <AiReportCard report={c.ai_report} status={c.status} />
       </aside>
-      <DocumentModal doc={openDoc} onClose={() => setOpenDoc(null)} />
+      <DocumentViewer doc={openDoc} campaign={c} onClose={() => setOpenDoc(null)} />
     </div>
   );
 }

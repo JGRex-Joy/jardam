@@ -15,7 +15,7 @@ export default function FeedPage() {
   const q = params.get("q") || "";
   const [category, setCategory] = useState("all");
   const { data, loading, error, reload } = useFetch((signal) => getCampaigns(q, signal), [q], { keepPrevious: true });
-  const shown = useMemo(() => (data ?? []).filter((c) => category === "all" || c.category === category), [data, category]);
+  const shown = useMemo(() => (Array.isArray(data) ? data : []).filter((c) => category === "all" || c.category === category), [data, category]);
 
   if (error) return <StateCard detail={error.message} onRetry={reload} />;
   return (
